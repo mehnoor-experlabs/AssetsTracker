@@ -1,0 +1,9 @@
+<h3>Add a comment:</h3>
+<%= form_with(model: [ @asset, @asset.comments.build ], local: true) do |form| %>
+  <div class="field form-group">
+    <%= form.label current_user.username %>:
+    <%= form.text_field :body, class: 'form-control'%>
+  </div>
+    <%= form.submit class:"btn btn-secondary" %>
+  </p>
+<% end %>

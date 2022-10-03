@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  purchase_date: 2022-09-27 14:54:25
+  purchased_from: MyString
+  serial_number: MyString
+  purchase_type: MyString
+  condition_score: MyString
+
+two:
+  name: MyString
+  description: MyText
+  purchase_date: 2022-09-27 14:54:25
+  purchased_from: MyString
+  serial_number: MyString
+  purchase_type: MyString
+  condition_score: MyString

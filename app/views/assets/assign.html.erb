@@ -1,0 +1,12 @@
+<h1>ASSIGN FORM</h1>
+<%= form_for  [@current_user,@asset], :url => {:controller => "assets", :action => "transfer"}, :method => :post do |form| %>
+    <%= form.hidden_field :id, :value => params[:id] %>
+  <div class="field form-group">
+    <%= form.label 'Assign To:' %>
+    <%= form.collection_select(:user_id, User.all - [current_user], :username, :username, :prompt => 'Select') %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class:"btn btn-secondary" %>
+  </div>
+<% end %>

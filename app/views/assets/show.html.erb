@@ -1,0 +1,60 @@
+<p>
+  <strong>Name:</strong>
+  <%= @asset.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @asset.description %>
+</p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @asset.purchase_date %>
+</p>
+
+<p>
+  <strong>Purchased from:</strong>
+  <%= @asset.purchased_from %>
+</p>
+
+<p>
+  <strong>Serial number:</strong>
+  <%= @asset.serial_number %>
+</p>
+
+<p>
+  <strong>Purchase type:</strong>
+  <%= @asset.purchase_type %>
+</p>
+
+<p>
+  <strong>Condition score:</strong>
+  <%= @asset.condition_score %>
+</p>
+<%if current_user%>
+<%= link_to 'Back', user_assets_path(current_user), class:"btn btn-secondary" %>
+<%if current_user.id == @asset.user_id%>
+<%= link_to 'Assign to another User', assign_user_asset_path(@current_user,@asset), class:"btn btn-secondary"%>
+<%end%>
+<%else%>
+<%= link_to 'Back', root_path, class:"btn btn-secondary" %>
+<%end%>
+<br/>
+<hr>
+<h3>Comments</h3>
+
+<% @asset.comments.each do |comment| %>
+  <p>
+    <strong><%=comment.commenter%>: </strong>
+    <%= comment.body %>
+    <%if current_user && (comment.commenter == current_user.username || current_user.id == @asset.user_id)%>
+    <%= link_to 'Delete', asset_comment_path(@asset, comment), method: :delete, class:"btn btn-secondary btn-sm", data: {confirm: "Are you sure?"} %>
+    <%end%>
+  </p>
+<% end %>
+<%if current_user%>
+<hr>
+<%= render 'comments/form', asset: @asset %>
+<%end%>
+

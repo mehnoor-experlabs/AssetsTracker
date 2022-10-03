@@ -1,0 +1,40 @@
+<%= form_for  [@current_user,@asset] do |form| %>
+  <div class="field form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control'%>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :purchase_date %>
+    <%= form.date_select :purchase_date, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :purchased_from %>
+    <%= form.collection_select(:purchased_from, User.all - [current_user], :name, :name, :prompt => 'Select') %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :serial_number %>
+    <%= form.text_field :serial_number, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :purchase_type %>
+    <%= form.select(:purchase_type, options_for_select([['Used', 'Used'],['New','New']], @asset.purchase_type), :prompt => 'Select')%>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :condition_score %>
+    <%= form.select(:condition_score, options_for_select([['Very Good', 'Very Good'],['Good','Good'],['Needs Maintenance','Needs Maintenance'],['Needs Replacement', 'Needs Replacement']], @asset.condition_score), :prompt => 'Select')%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class:"btn btn-secondary" %>
+  </div>
+<% end %>
