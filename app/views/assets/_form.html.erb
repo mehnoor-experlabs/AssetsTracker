@@ -34,6 +34,13 @@
     <%= form.select(:condition_score, options_for_select([['Very Good', 'Very Good'],['Good','Good'],['Needs Maintenance','Needs Maintenance'],['Needs Replacement', 'Needs Replacement']], @asset.condition_score), :prompt => 'Select')%>
   </div>
 
+  <%if locals[:useraction] == 'new'%>
+  <div class="field form-group">
+    <%= form.label :password %>
+    <%= form.text_field :password, class: 'form-control' %>
+  </div>
+  <%end%>
+
   <div class="actions">
     <%= form.submit class:"btn btn-secondary" %>
   </div>

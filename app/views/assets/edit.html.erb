@@ -1,5 +1,5 @@
 <h1>Edit Asset</h1>
 
-<%= render 'form', asset: @asset %>
+<%= render 'form', locals: {asset: @asset, useraction: 'edit'} %>
 
-<%= link_to 'Back', user_assets_path(current_user) %>
+<%= link_to 'Back', user_assets_path(current_user), class:"btn btn-secondary" %>

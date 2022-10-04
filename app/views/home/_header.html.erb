@@ -9,7 +9,13 @@
         <% if @current_user %>
         <li class="nav-item">
             <%= link_to 'My Assets', user_assets_path(current_user), class: "nav-link active"%>
-        </li>        
+        </li>
+        <li class="nav-item">
+            <%= link_to 'My Credentials', user_credentials_path, class: "nav-link active"%>
+        </li>             
+        <li class="nav-item">
+            <%= link_to 'Change Password', edit_user_path(current_user), class: "nav-link active"%>
+        </li>         
         <li class="nav-item">
             <%= link_to 'Sign Out', signout_path, method: :delete, class: "nav-link active"%>
         </li>

@@ -35,7 +35,8 @@
 <%if current_user%>
 <%= link_to 'Back', user_assets_path(current_user), class:"btn btn-secondary" %>
 <%if current_user.id == @asset.user_id%>
-<%= link_to 'Assign to another User', assign_user_asset_path(@current_user,@asset), class:"btn btn-secondary"%>
+ <%= link_to 'Assign to another User', assign_user_asset_path(@current_user,@asset), class:"btn btn-secondary"%>
+ <%= link_to 'Change Password', edit_asset_password_path(current_user, @asset), class: "btn btn-secondary"%>
 <%end%>
 <%else%>
 <%= link_to 'Back', root_path, class:"btn btn-secondary" %>

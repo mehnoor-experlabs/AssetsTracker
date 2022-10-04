@@ -1,9 +1,9 @@
 class AssetsController < ApplicationController
-    before_action :authorize, only: %i[index new create edit update destroy]
+    before_action :authorize, only: %i[index new create edit update destroy edit_password]
     before_action :current_user
-    before_action :set_asset, only: %i[ show edit update destroy assign]
-    before_action :allowed, only: %i[update destroy assign]
-
+    before_action :set_asset, only: %i[ show edit update destroy assign edit_password update_password]
+    before_action :allowed, only: %i[update destroy assign edit_password]
+    after_action :add_credentials, only: %i[create update_password]
     def index
         @assets = current_user.assets
     end
@@ -15,7 +15,7 @@ class AssetsController < ApplicationController
     def create
         @asset = current_user.assets.build(asset_params.merge(:assigned_at => Date.today))
         if @asset.save
-            redirect_to user_assets_url(current_user), notice: asset_params.inspect
+            redirect_to user_assets_url(current_user), notice: "Asset was successfully created."
         else
             render 'new'
         end
@@ -53,6 +53,19 @@ class AssetsController < ApplicationController
             redirect_to user_assets_url(current_user), notice: "Asset has been successfuly transferred to #{user.username}"
         end
     end
+    def edit_password
+    end
+    def update_password
+        if allowed
+            if @asset.update(asset_params)
+                redirect_to user_asset_url(current_user), notice: "Password was successfully changed."
+            else
+                render 'edit'
+            end
+        else
+            redirect_to user_assets_url(current_user), notice: "Illegal action"
+        end
+    end
     private
     def set_asset
         @asset = Asset.find(params[:id])
@@ -61,9 +74,12 @@ class AssetsController < ApplicationController
         @asset.user_id == current_user.id
     end
     def asset_params
-        params.require(:asset).permit(:name, :description, :purchase_date, :purchased_from, :serial_number, :purchase_type, :condition_score)
+        params.require(:asset).permit(:name, :description, :purchase_date, :purchased_from, :serial_number, :purchase_type, :condition_score, :password)
     end
     def assign_params
         params.require(:asset).permit(:user_id, :id)
+    end
+    def add_credentials
+        Credential.create(credentiable: @asset, password: @asset.password)
     end
 end

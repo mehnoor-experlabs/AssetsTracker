@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_30_111219) do
+ActiveRecord::Schema.define(version: 2022_10_03_123641) do
 
   create_table "assets", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_09_30_111219) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.date "assigned_at"
+    t.string "password"
     t.index ["user_id"], name: "index_assets_on_user_id"
   end
 
@@ -34,6 +35,14 @@ ActiveRecord::Schema.define(version: 2022_09_30_111219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["asset_id"], name: "index_comments_on_asset_id"
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.string "credentiable_type"
+    t.integer "credentiable_id"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
